@@ -26,10 +26,17 @@ const header = require('./baumann-header.js');
 console.log(header.display("Reva", "Baumann", "Exercise 1.4"));
 console.log("") // Line Break
 
-var url = require('url')
+// URL Module
+var url = require("url");
 
-var parsedURL = url.parse('https://github.com/rmbaumann');
+// Call URL Parse function
+var parsedURL = url.parse('https://github.com/rmbaumann/rmbaumann.github.io');
 
+
+// Output
+// Call the console function 
 console.log(parsedURL.protocol);
 console.log(parsedURL.host);
-console.log(parsedURl.query);
+console.log(parsedURL.query);
+
+// End Program
