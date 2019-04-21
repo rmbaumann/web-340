@@ -17,8 +17,19 @@ Expected output:
 
 */
 
+
+// Start Program
+
+
 // lists details of formatted header, including first name, last name and assignment
 const header = require('./baumann-header.js');
 console.log(header.display("Reva", "Baumann", "Exercise 1.4"));
+console.log("") // Line Break
 
-// Start Program
+var url = require('url')
+
+var parsedURL = url.parse('https://github.com/rmbaumann');
+
+console.log(parsedURL.protocol);
+console.log(parsedURL.host);
+console.log(parsedURl.query);
