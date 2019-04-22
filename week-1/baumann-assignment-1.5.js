@@ -31,7 +31,7 @@ var http = require("http");
 
 function processRequest(req, res) {
 
-var body = "Hello World";
+var body = "Hello World!";
 
     var contentLength = body.length;
 
