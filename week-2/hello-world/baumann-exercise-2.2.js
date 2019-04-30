@@ -36,12 +36,17 @@ var http = require("http");
 var app = express();
 
 // Response of Hello World for any URL
-app.use(function(request, response) {
-  console.log("In comes a request to: " + request.url);
-  response.end("Hello World");
-});
+app.use(function(req, res)
+{
+    console.log('In comes a request to: %s', req.url);
+
+    res.end('Hello World\n');
+})
 
 // Call the createServer and listen for a request on port 8080
-http.createServer(app).listen(8080);
+http.createServer(app).listen(8080, function()
+{
+    console.log('Application started on port %s', 8080);
+})
 
 // end program
