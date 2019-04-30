@@ -1,10 +1,11 @@
 /*
-============================================
-; Title:  baumann-exercise-2.2.js
+=============================================
+; Title: baumann-exercise-2.2.js
 ; Author: Reva Baumann
-; Date:   29 February 2019
-; Description: Created a Node.js server
-;===========================================
+; Date: 29 April 2019
+; Modified by: Reva Baumann
+; Description: Recreate the Hello World example
+;============================================
 */
 
 /*
@@ -19,23 +20,28 @@ Expected output:
 
 // Start Program
 
-// Declare the Express variable and import Express
+
+// lists details of formatted header, including first name, last name and assignment
+const header = require('./baumann-header.js');
+console.log(header.display("Reva", "Baumann", "Exercise 2.2"));
+console.log("") // Line Break
+
+// Declare the express variable and import the module
 var express = require("express");
 
-// Declare the HTTP variable and import HTTP Module
+// Declare the http variable and import the module
 var http = require("http");
 
-// Declare the App Variable and call Express to start an application instance
+// Declare the app variable and call the express function to start Express
 var app = express();
 
-//Express passing a function for request and response
-app.use(function(request, response){
+// Response of Hello World for any URL
+app.use(function(request, response) {
   console.log("In comes a request to: " + request.url);
-  // Closed response
   response.end("Hello World");
 });
 
-// Call createServer to listen for a request on port 8080
-http.createServer(app).listen (8080);
+// Call the createServer and listen for a request on port 8080
+http.createServer(app).listen(8080);
 
-//end program
+// end program
