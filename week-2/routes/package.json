@@ -1,0 +1,8 @@
+{
+  "name": "ejs-views",
+  "author": "Reva Baumann",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
