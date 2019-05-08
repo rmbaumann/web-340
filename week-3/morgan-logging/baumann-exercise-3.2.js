@@ -52,6 +52,7 @@ app.get('/', function(req, res) {
     });
 });
 
+// Use console.log to listen for port 8080 and respond
 http.createServer(app).listen(8080, function () {
     console.log('Application started and listening on port %s', 8080);
 });
