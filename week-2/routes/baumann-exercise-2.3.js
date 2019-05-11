@@ -14,6 +14,7 @@ Expected output:
   Exercise 2.3
   29 April 2019
   Expected output
+  Application started on port 8080
 
 */
 
