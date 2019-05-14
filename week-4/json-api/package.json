@@ -1,0 +1,10 @@
+{
+  "name": "exercise-4.2", "baumann-exercise-4.2.js"
+  "author": "Reva Baumann",
+  "private": true,
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
+  }
+}
