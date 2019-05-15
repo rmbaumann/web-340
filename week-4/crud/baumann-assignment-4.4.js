@@ -29,15 +29,8 @@ console.log("") // Line Break
 var express = require("express");
 // Declare the http variable and import the http module
 var http = require("http");
-// Declare the logger variable and import
-var logger = require("morgan");
 
 // Sets the app to express
-var app = express();
-
-var express = require("express");
-var http = require("http");
-
 var app = express();
 
 // Outputs a message using GET Response
