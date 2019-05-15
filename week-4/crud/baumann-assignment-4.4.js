@@ -1,20 +1,20 @@
  /*
 =============================================
-; Title: baumann-exercise-4.3.js
+; Title: baumann-assignment-4.3.js
 ; Author: Reva Baumann
-; Date: 14 May 2019
+; Date: 15 May 2019
 ; Modified by: Reva Baumann
-; Description: Application started on port 8080! Woohoo!
+; Description: Application started on port 8080!
 ;============================================
 */
 
 /*
 Expected output:
   Reva Baumann
-  Exercise 4.3
-  14 May 2019
+  Assignment 4.3
+  15 May 2019
   Expected output
-
+   Application started on port 8080!
 
 */
 
@@ -22,7 +22,7 @@ Expected output:
 
 // lists details of formatted header, including first name, last name and assignment
 const header = require('./baumann-header.js');
-console.log(header.display("Reva", "Baumann", "Exercise 4.3"));
+console.log(header.display("Reva", "Baumann", "Assignment 4.3"));
 console.log("") // Line Break
 
 // Declare the express variable and import the express module
