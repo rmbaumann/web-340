@@ -15,6 +15,7 @@ Expected output:
   14 May 2019
   Expected output
 
+  Application started and listening on port 8080
 
 */
 
@@ -39,6 +40,9 @@ var http = require("http");
 // Declare the app variable and call the express function to start an Express application instance
 var app = express();
 
+// run express
+var app = express();
+
 
 
 app.get('/customer/:id', function(request, respond) {
@@ -47,7 +51,7 @@ app.get('/customer/:id', function(request, respond) {
   res.json({
     firstName: 'Leo',
     lastName: 'Tolstoy',
-    employeeId: id;
+    employeeId: id
   });
 });
 
