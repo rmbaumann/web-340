@@ -32,10 +32,11 @@ var http = require("http");
 // Declare the logger variable and import
 var logger = require("morgan");
 
+// Sets the app to express
 var app = express();
 
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 
 // Call function 404 status - not found
 app.get("/not-found", function(request, respond) {
