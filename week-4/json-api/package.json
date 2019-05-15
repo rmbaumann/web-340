@@ -1,8 +1,8 @@
 {
-  "name": "exercise-4.2", "baumann-exercise-4.2.js"
+  "name": "json-api",
   "author": "Reva Baumann",
   "private": true,
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.16.4"
   }
 }
