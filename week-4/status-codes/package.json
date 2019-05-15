@@ -1,9 +1,9 @@
 {
-  "name": "status-code",
-  "author": "Reva Baumann",
-  "private": true,
-  "version": "0.0.1",
-  "dependencies": {
-    "express": "^4.16.4",
+  "name": "status-codes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "baumann-exercise-4.3.js",
+  "scripts": {
+    "express": "^4.16.4"
   }
 }
