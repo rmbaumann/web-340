@@ -1,0 +1,9 @@
+{
+  "name": "if-else-render",
+  "author": "Reva Baumann",
+  "private": true,
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.17.0"
+  }
+}
