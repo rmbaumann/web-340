@@ -1,0 +1,9 @@
+{
+  "name": "pug-template",
+  "author": "Reva Baumann",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.0",
+    "pug": "^2.0.3"
+  }
+}
