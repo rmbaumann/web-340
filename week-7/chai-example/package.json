@@ -1,0 +1,9 @@
+{
+    "name": "baumann-fruits.js",
+    "author": "Reva Baumann",
+    "private": true,
+    "dependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^6.1.4"
+    }
+}
