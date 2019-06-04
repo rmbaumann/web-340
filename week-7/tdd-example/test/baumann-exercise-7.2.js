@@ -31,16 +31,11 @@ var assert = require("assert");
 // Describe the testing features
 describe("String#split", function(){
     //test cases
-    it("should return an array of fruits", function() {
+    it("should return an array of fruits", function(){
         assert(Array.isArray('Apple, Orange, Mango'.split(',')));
     });
 });
 
-Run the Test
-    npm test 
-Passed function
 function getFruits(str) {
     return str.split(',');
 }
-
-module exports = getFruits;
