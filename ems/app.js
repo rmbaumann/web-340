@@ -33,6 +33,26 @@ var http = require("http");
 var path = require("path");
 // Declare a Morgan logger
 var logger = require("morgan");
+// Declare the Mongoose Module
+var mongoose = require("mongoose");
+
+// Declare employee variables and import the module
+var Employee = require("./models/employee")
+
+// connection to ems database
+var mongoDB = "mongodb+srv://user1:b3ll3vu3@buwebdev-cluster-1-ivaeg.mongodb.net/test?retryWrites=true&w=majority";
+
+// Call the Mongoose connection function
+mongoose.connect(mongoDB, {});
+var db = mongoose.connection;
+
+// Connection Error Details
+db.on("error", console.error.bind(console, 'MongoDB Connection Not Working'));
+
+// Open event on MongoDB
+db.once('open', function(){
+    console.log("Application started and connected to MongoDB");
+});
 
 var app = express();
 
@@ -77,3 +97,5 @@ app.get("/view", function(request, response){
 http.createServer(app).listen(8080, function() {
     console.log("Application started on port 8080!");
 });
+
+//end program
