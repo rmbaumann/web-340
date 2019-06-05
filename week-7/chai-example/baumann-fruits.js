@@ -26,9 +26,11 @@ console.log(header.display("Reva", "Baumann", "Assignment 4.3"));
 console.log("") // Line Break
 
 // Create fruits function
-function fruits(str) {
-    return str.split(',');
+function fruits(list){
+    return list.split(',');
 }
 
 // Export the modules
 module.exports = fruits;
+
+// end program
