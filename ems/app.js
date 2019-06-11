@@ -35,6 +35,16 @@ var path = require("path");
 var logger = require("morgan");
 // Declare the Mongoose Module
 var mongoose = require("mongoose");
+// Declare Helmet Module
+var helmet = require("helmet");
+// Declare bodyParser module
+var bodyParser = require("body-parser");
+// Declare cookieParser module
+var cookieParser = require("cookie-parser");
+// Declare CSRF module
+var csrf = require("csurf");
+// Cross site request forgery object
+var csrfProtection = csrf({cookie: true});
 
 // Declare employee variables and import the module
 var Employee = require("./models/employee")
@@ -50,15 +60,38 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, 'MongoDB Connection Not Working'));
 
 // Open event on MongoDB
-db.once('open', function(){
+db.on("open", function(){
     console.log("Application started and connected to MongoDB");
 });
 
+var employee = new Employee();
+
 var app = express();
 
+// Express Use function  body-parser
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+// Cookie Parser
+app.use(cookieParser());
+
+// CSRF
+app.use(csrfProtection);
+
+// Generate a token here
+app.use(function(request, response, next){
+    var token = request.csrfToken();
+    response.cookie('XSRF-TOKEN', token);
+    response.locals.csrfToken = token;
+    next();
+})
+
+// Set Functions to setup logers, view engine, helmet, etc.
 app.set("views",path.resolve(__dirname,"views"));
 app.set("view engine","ejs");
 app.use(logger("short"));
+app.use(express.static('./'));
 app.use(express.static('./'));
 
 // Renders the index page
@@ -69,13 +102,20 @@ app.get("/", function(request, response) {
     });
 });
 
-// Renders the list page
-app.get("/list", function(request, response) {
-    response.render("list", {
-        title: "List Employees",
-        page: "list",
+app.get("/list", function (request, response) {
+    Employee.find({}, function(error, employees){
+        if(error){
+            throw error;
+        }
+        
+        response.render("list", {
+            title: "Employee list",
+            page: "list",
+            employees
+        })
     });
 });
+
 
 // Renders the new page
 app.get("/new", function(request, response) {
@@ -85,11 +125,48 @@ app.get("/new", function(request, response) {
     });
 });
 
+// Employee form details
+app.post("/process", function(request, response){
+    if(!request.body.txtFirstName){
+        response.status(400).send("Fill out Form Completely");
+        return;
+    }
+
+    if(!request.body.txtLastName){
+        response.status(400).send("Last Name is Required");
+        return;
+    }
+
+    var firstName = request.body.txtFirstName;
+    var lastName = request.body.txtLastName;
+
+    console.log(firstName, lastName);
+    var employee = new Employee({
+        firstName,
+        lastName
+    });
+
+    // Save Function
+    employee.save(function(error){
+        if(error){
+            throw error;
+        }
+        console.log('Employee ${firstName} ${lastName} saved!');
+    });
+
+    // Go to homepage redirect
+    response.redirect("/");
+});
+
+
+
 // Renders the View Page
-app.get("/view", function(request, response){
+app.get("/view/:id?", function(request, response){
+    var employeeId = request.params && request.params.id ? parseInt(request.params.id, 10) : null;
     response.render("view", {
         title: "View Employees",
         page: "view",
+        employeeId: employeeId
     });
 });
 
