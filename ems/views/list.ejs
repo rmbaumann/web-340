@@ -11,35 +11,55 @@
 <!DOCTYPE html>
 <html lang="en">
     <% include header %>
+    
     <% include navbar %>
 
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Title</th>
-                </tr>
-            </thead>
+    <body>
+        <main role="main">
+        <% if (employees && employees.length){ %>
+        <a class="float-right" href="/ems/views/new.ejs">New</a>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr>
-                    <td>Diana Prince</td>
-                    <td>Art Historian</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>Diana Prince</td>
+                        <td>Art Historian</td>
+                    </tr>
 
-                <tr>
-                    <td>Bruce Wayne</td>
-                    <td>Philanthropist</td>
-                </tr>
+                    <tr>
+                        <td>Bruce Wayne</td>
+                        <td>Philanthropist</td>
+                    </tr>
 
-                <tr>
-                    <td>Clark Kent</td>
-                    <td>Journalist</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <td>Clark Kent</td>
+                        <td>Journalist</td>
+                    </tr>
+
+                <% employees.forEach(function(employee){ %>
+
+                    <tr>
+                      <td><%= employee.firstName %></td>
+                      <td><%= employee.lastName %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } else{ %>
+            <br><br>
+            <p>New<a href="/new">add one!</a></p>
+          <% } %>
+          </div>
     <% include footer %>
+        </main>
     <% include scripts %>
+    </body>
 </html>
