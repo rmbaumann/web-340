@@ -9,58 +9,32 @@
 ;===========================================
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-    <% include header %>
+<% include header %>
+<% include navbar %>
+<!-- BEGIN HOME PAGE -->
+<div role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Employee Management System</h1>
+            <p>Welcome to Real Company's employee management system practice application! Please read on as I continue to describe this wonderful website and feel free to gasp and/or squeal giddily at its sheer magnificence! If you would like to work for Real Company, simply add yourself to our employee database and bypass all the beaurocracy! If you would like to terminate your own employment and possibly retroactively prevent your very existence, delete yourself!</p>
+            <p><a class="btn btn-primary btn-lg" href="/views/list.ejs" role="button">View Employees &raquo;</a></p>
+        </div>
+    </div>
 
-    <body>
-        <% include navbar %>
-
-        <h1>The Justice League</h1>
-
-        <div class="column">
-            <div class="column">
-                <div class="card">
-                    <div class="container">
-                        <h2>Superheroes</h2>
-                        <p class="title">On Retainer</p>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 flex-section">
+                <h2>View Employees</h2>
+                <p>I've got 'em, you've got 'em: EMPLOYEES. Who wouldn't want to be in your employ? No one in their right mind, that's who! Have a looksee at this lil' list here to know whom you employ; and therefore by process of elimination, whom you have yet to obtain!</p>
+                <p><a class="btn btn-secondary btn-info" href="/views/view.ejs" role="button">View Employees &raquo;</a></p>
+            </div>
+            <div class="col-md-6 flex-section">
+                <h2>Add Employee</h2>
+                <p>Also referred to as "hiring" by the commonfolk. Speaking of commonfolk, slap one of their names and emails in here to OBTAIN them!</p>
+                <p><a class="btn btn-secondary btn-success" href="/views/new.ejs" role="button">Add Employee &raquo;</a></p>
             </div>
         </div>
-
-        <div class="column">
-            <div class="card">
-                <div class="container">
-                    <h2>Diana Prince</h2>
-                    <p class="title">Art Historian</p>
-                    <p>Diana comes from a rich background in Art History and Antiquities, specializing in Greek Mythology.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="column">
-            <div class="card">
-                <div class="container">
-                    <h2>Bruce Wayne</h2>
-                    <p class="title">Philanthropist</p>
-                    <p>Bruce's background in Non-Profits allows him to educate others on the best invenstments in the future and for other non-profits.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <div class="container">
-                    <h2>Clark Kent</h2>
-                    <p class="title">Journalist</p>
-                    <p>Clark has great experience reporting on stories all over the world, he's active within the Journalism World and provides a unique scope on social justice.</p>
-                </div>
-            </div>
-        </div>
-
-        <% include scripts %>
-
-        <% include footer %>
-    </body>
-</html>
+    </div>
+</div>
+<% include footer %>
+<% include scripts %>
