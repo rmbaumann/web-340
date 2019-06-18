@@ -9,32 +9,50 @@
 ;===========================================
 -->
 
-<% include header %>
-<% include navbar %>
-<!-- BEGIN HOME PAGE -->
-<div role="main">
-    <div class="jumbotron">
+<!DOCTYPE html>
+<html lang="en">
+  <% include header %>
+  <body>
+    <% include navbar %>
+    <main role="main">
         <div class="container">
-            <h1 class="display-3">Employee Management System</h1>
-            <p>Welcome to Real Company's employee management system practice application! Please read on as I continue to describe this wonderful website and feel free to gasp and/or squeal giddily at its sheer magnificence! If you would like to work for Real Company, simply add yourself to our employee database and bypass all the beaurocracy! If you would like to terminate your own employment and possibly retroactively prevent your very existence, delete yourself!</p>
-            <p><a class="btn btn-primary btn-lg" href="/views/list.ejs" role="button">View Employees &raquo;</a></p>
-        </div>
-    </div>
-
-    <div class="container">
         <div class="row">
-            <div class="col-md-6 flex-section">
-                <h2>View Employees</h2>
-                <p>I've got 'em, you've got 'em: EMPLOYEES. Who wouldn't want to be in your employ? No one in their right mind, that's who! Have a looksee at this lil' list here to know whom you employ; and therefore by process of elimination, whom you have yet to obtain!</p>
-                <p><a class="btn btn-secondary btn-info" href="/views/view.ejs" role="button">View Employees &raquo;</a></p>
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">List</h3>
+              </div>
+              <div class="card-body">
+                <p class="card-text">View a list of detailed Employees</p>
+              </div>
             </div>
-            <div class="col-md-6 flex-section">
-                <h2>Add Employee</h2>
-                <p>Also referred to as "hiring" by the commonfolk. Speaking of commonfolk, slap one of their names and emails in here to OBTAIN them!</p>
-                <p><a class="btn btn-secondary btn-success" href="/views/new.ejs" role="button">Add Employee &raquo;</a></p>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Add New</h3>
+              </div>
+              <div class="card-body">
+                <p class="card-text">Add a new employee</p>
+              </div>
             </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">View</h3>
+              </div>
+              <div class="card-body">
+                <p class="card-text">View Employee Details</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
-<% include footer %>
-<% include scripts %>
+      </div>
+
+      <% include footer %>
+
+    </main>
+    <% include scripts %>
+  </body>
+</html>
