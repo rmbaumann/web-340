@@ -77,6 +77,7 @@ app.use(function(req, res, next) {
 app.use(express.static(__dirname));
 
 // View Engine
+app.set("port", process.env.PORT || 3001);
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(logger("short"));
@@ -173,8 +174,8 @@ db.once("open", function() {
 });
 
 // HTTP Server
-http.createServer(app).listen(3001, function() {
-    console.log("Application started and listening on Port 3001!")
+http.createServer(app).listen(app.get("port"), function() {
+    console.log("Application started and listening on Port 3001!");
 });
 
 //end program
