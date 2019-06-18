@@ -9,18 +9,14 @@
 */
 
 // start program
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-// Declare the Mongoose Variable and import the module
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-// Employee details including first and last name
-let EmployeeSchema = new Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true}
+var employeeSchema = new Schema({
+    name: String
 });
 
-// Export the model set to the schema
-module.exports = mongoose.model('Employee', EmployeeSchema);
+var Employee = mongoose.model("ems", employeeSchema);
 
+module.exports = Employee;
 // end program
