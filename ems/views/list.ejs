@@ -8,58 +8,38 @@
 ; Description: List Employee Details
 ;===========================================
 -->
-<!DOCTYPE html>
-<html lang="en">
-    <% include header %>
-    
-    <% include navbar %>
 
-    <body>
-        <main role="main">
-        <% if (employees && employees.length){ %>
-        <a class="float-right" href="/ems/views/new.ejs">New</a>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
+<% include header %>
+<% include navbar %>
+<!-- BEGIN EMPLOYEE LIST -->
+<div class="container">
+    <h2 class="my-4"><%= title %></h2>
+    <% if(employees.length) { %>
+        <a class="btn btn-success my-4" href="/views/new.ejs">Add New</a>
+        <table class="table table-striped table-hover border border-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Functions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employees.forEach(function(emp) { %>
                     <tr>
-                        <th>Name</th>
-                        <th>Title</th>
+                        <td class="border border-dark"><%= emp.name %></td>
+                        <td class="border border-dark">
+                            <a href="/views/new.ejs"<%= emp.name %>" class="btn btn-success">
+                                <i class="fa fa-eye fa-md"></i>&nbsp;&nbsp;VIEW
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Diana Prince</td>
-                        <td>Art Historian</td>
-                    </tr>
-
-                    <tr>
-                        <td>Bruce Wayne</td>
-                        <td>Philanthropist</td>
-                    </tr>
-
-                    <tr>
-                        <td>Clark Kent</td>
-                        <td>Journalist</td>
-                    </tr>
-
-                <% employees.forEach(function(employee){ %>
-
-                    <tr>
-                      <td><%= employee.firstName %></td>
-                      <td><%= employee.lastName %></td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-              </table>
-            </div>
-          <% } else{ %>
-            <br><br>
-            <p>New<a href="/new">add one!</a></p>
-          <% } %>
-          </div>
-    <% include footer %>
-        </main>
-    <% include scripts %>
-    </body>
-</html>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <h3 class="my-4">No Entries!</h3>
+        <a class="btn btn-success" href="/views/new.ejs">Add Employee</a>
+    <% } %>
+</div>
+<% include footer %>
+<% include scripts %>
