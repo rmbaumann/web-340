@@ -9,17 +9,19 @@
 ;===========================================
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-    <% include header %>
-    <body>
-        <% include navbar %>
-        <div class="row"></div>
-        <h2>Employees</h2>
-        <li>Wonder Woman</li>
-        <li>Batman</li>
-        <li>Superman</li>
-        <% include footer %>
-        <% include scripts %>
-    </body>
-</html>
+<% include header %>
+<% include navbar %>
+<div role="main" class="container">
+    <h2 class="my-4"><%= title %></h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Employee</h5>
+            <hr>
+            <p class="card-text my-4">Name: <strong><%= employee.name %></strong></p>
+            <hr>
+            <a href="/views/list.ejs" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+<% include footer %>
+<% include scripts %>
