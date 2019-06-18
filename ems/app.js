@@ -20,6 +20,7 @@ Expected output:
 
 // Start Program
 
+
 // lists details of formatted header, including first name, last name and assignment
 const header = require('./baumann-header.js');
 console.log(header.display("Reva", "Baumann", "App.ejs"));
@@ -46,94 +47,79 @@ var csrf = require("csurf");
 // Cross site request forgery object
 var csrfProtection = csrf({cookie: true});
 
-// Declare employee variables and import the module
-var Employee = require("./models/employee")
+var Employee = require("./models/employee");
 
 // connection to ems database
 var mongoDB = "mongodb+srv://user1:b3ll3vu3@buwebdev-cluster-1-ivaeg.mongodb.net/test?retryWrites=true&w=majority";
 
-// Call the Mongoose connection function
-mongoose.connect(mongoDB, {});
-var db = mongoose.connection;
 
-// Connection Error Details
-db.on("error", console.error.bind(console, 'MongoDB Connection Not Working'));
-
-// Open event on MongoDB
-db.on("open", function(){
-    console.log("Application started and connected to MongoDB");
-});
-
-var employee = new Employee();
-
+// Express App
 var app = express();
 
-// Express Use function  body-parser
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-// Cookie Parser
-app.use(cookieParser());
-
-// CSRF
-app.use(csrfProtection);
-
-// Generate a token here
-app.use(function(request, response, next){
-    var token = request.csrfToken();
-    response.cookie('XSRF-TOKEN', token);
-    response.locals.csrfToken = token;
-    next();
-})
-
-// Set Functions to setup logers, view engine, helmet, etc.
-app.set("views",path.resolve(__dirname,"views"));
-app.set("view engine","ejs");
+// Morgan Logger
 app.use(logger("short"));
-app.use(express.static('./'));
+
+// Security
+var csrfProtection = csrf({ cookie: true });
+var parseForm = bodyParser.urlencoded({ extended: true });
+app.use(helmet.xssFilter());
+app.use(parseForm);
+app.use(cookieParser());
+app.use(csrfProtection);
+app.use(function(req, res, next) {
+    let token = req.csrfToken();
+    res.cookie("XSRF-TOKEN", token);
+    res.locals.csrfToken = token;
+    next();
+});
+
+// Static Files
+app.use(express.static(__dirname));
+
+// View Engine
+app.set("views", path.resolve(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(logger("short"));
+app.use(helmet.xssFilter());
 app.use(express.static('./'));
 
-// Renders the index page
+// Express Routing
 app.get("/", function(request, response) {
-    response.render("index", {
-        title: "Home Page",
-        page: "home",
+    res.render("index", {
+        title: "Home Page"
+        page: "home"
     });
 });
 
-app.get("/list", function (request, response) {
-    Employee.find({}, function(error, employees){
+app.get("/list", function(request, response) {
+    Employee.find({}, function(error, employees) {
         if(error){
             throw error;
         }
-        
+
         response.render("list", {
-            title: "Employee list",
+            title: "Employee List",
             page: "list",
-            employees
-        })
+            employees: employees
+        });
     });
 });
 
-
-// Renders the new page
 app.get("/new", function(request, response) {
     response.render("new", {
-        title: "New Employees",
-        page: "new",
+        title: "Add New Employee",
+        csrfToken: req.csrfToken()
     });
 });
 
-// Employee form details
-app.post("/process", function(request, response){
-    if(!request.body.txtFirstName){
-        response.status(400).send("Fill out Form Completely");
+app.post("/process", function(request, response) {
+    if (!request.body.txtName) {
+        response.status(400).send("Entries must have a name!");
         return;
     }
 
     if(!request.body.txtLastName){
-        response.status(400).send("Last Name is Required");
+        response.status(400).sent("Entries must have a last name!");
         return;
     }
 
@@ -143,36 +129,52 @@ app.post("/process", function(request, response){
     console.log(firstName, lastName);
     var employee = new Employee({
         firstName,
-        lastName
+        lastName,
     });
-
-    // Save Function
+    
     employee.save(function(error){
         if(error){
             throw error;
         }
-        console.log('Employee ${firstName} ${lastName} saved!');
+        console.log('Employee ${firstName} ${lastName} saved!!');
     });
 
-    // Go to homepage redirect
     response.redirect("/");
 });
 
-
-
-// Renders the View Page
-app.get("/view/:id?", function(request, response){
-    var employeeId = request.params && request.params.id ? parseInt(request.params.id, 10) : null;
-    response.render("view", {
-        title: "View Employees",
-        page: "view",
-        employeeId: employeeId
+app.get("/view/:queryName", function(req, res) {
+    let qn = req.params.queryName;
+    Employee.find({ "name": qn }, function(error, emps) {
+        if(error) throw error;
+        console.log(emps);
+        if(emps.length > 0) {
+            res.render("view", {
+                title: "Employee Record",
+                employee: emps[0]
+            });
+        }
+        else {
+            res.redirect("/list");
+        }
     });
 });
 
-// Create Server
-http.createServer(app).listen(8080, function() {
-    console.log("Application started on port 8080!");
+// Mongo Connection 
+mongoose.connect(mongoDB, {
+    useMongoClient: true
+});
+
+mongoose.Promise = global.Promise;
+
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connected error: "));
+db.once("open", function() {
+    console.log("Application connected to mLab MongoDB instance.");
+});
+
+// HTTP Server
+http.createServer(app).listen(3001, function() {
+    console.log("Application started and listening on Port 3001!")
 });
 
 //end program
