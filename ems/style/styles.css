@@ -1,5 +1,8 @@
-.body{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.flex-section {
+    display: flex;
+    flex-direction: column;
 }
 
+.flex-section p:last-of-type {
+    margin-top: auto;
+}
