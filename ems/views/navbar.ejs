@@ -9,21 +9,39 @@
 ;===========================================
 -->
 
-<!-- Navbar Details  s-->
-<div class="bg-dark">
-  <div class="container">
-      <nav class="navbar navbar-expand-sm navbar-dark">
-          <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="nav-link" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/views/view.ejs">View Employees</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/views/new.ejs">Add Employees</a>
-              </li>
-          </ul>
-      </nav>
-  </div>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <!-- Navbar brand -->
+        <a class="navbar-brand" href="/">
+          <img src="img/nav-logo.png" width="200" height="54" alt="Twin Lab Works Logo">
+        </a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/new">New Employee</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/list">Employee List</a>
+        </li>
+
+
+
+      </ul>
+      <!-- Links -->
+    <!-- Collapsible content -->
+
+  </nav>
