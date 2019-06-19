@@ -9,37 +9,47 @@
 ;===========================================
 -->
 
-<% include header %>
-<% include navbar %>
-<!-- BEGIN EMPLOYEE LIST -->
-<div class="container">
-    <h2 class="my-4"><%= title %></h2>
-    <% if(employees.length) { %>
-        <a class="btn btn-success my-4" href="/views/new.ejs">Add New</a>
-        <table class="table table-striped table-hover border border-dark">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Functions</th>
-                </tr>
+<!DOCTYPE html>
+<html lang="en">
+  <% include header %>
+
+  <body>
+    <% include navbar %>
+
+    <div role="main" class="container col-md-6">
+      <br /><br />
+      <h2><%= title %></h2>
+      <% if(employees && employees.length) { %>
+      <h5><a href="/new">Add New</a></h5>
+      <!-- Test to see if the employees list exist and that it is an array-->
+        <div class="table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Employee Record</th>
+              </tr>
             </thead>
             <tbody>
-                <% employees.forEach(function(emp) { %>
-                    <tr>
-                        <td class="border border-dark"><%= emp.name %></td>
-                        <td class="border border-dark">
-                            <a href="/views/new.ejs"<%= emp.name %>" class="btn btn-success">
-                                <i class="fa fa-eye fa-md"></i>&nbsp;&nbsp;VIEW
-                            </a>
-                        </td>
-                    </tr>
-                <% }) %>
+              <!-- Output the employee information stored in the database -->
+              <% employees.forEach(function(employee){ %>
+                <tr>
+                  <td><%= employee.firstName %></td>
+                  <td><%= employee.lastName %></td>
+                  <td><a href="/view/<%= employee._id %>" >VIEW</a></td>
+                </tr>
+              <% }) %>
             </tbody>
-        </table>
-    <% } else { %>
-        <h3 class="my-4">No Entries!</h3>
-        <a class="btn btn-success" href="/views/new.ejs">Add Employee</a>
-    <% } %>
-</div>
-<% include footer %>
-<% include scripts %>
+          </table>
+        </div>
+        <% } else{ %>
+          <br><br>
+          <p>No entries <a href="/new">add one!</a></p>
+        <% } %>
+    </div>
+
+    <% include footer %>
+    <% include scripts %>
+  </body>
+</html>
