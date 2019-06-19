@@ -13,9 +13,6 @@ Expected output:
   Reva Baumann
   App.ejs
   15 May 2019
-
-
-
 */
 
 // Start Program
@@ -52,18 +49,14 @@ var Employee = require("./models/employee");
 // connection to ems database
 var mongoDB = "mongodb+srv://user1:b3ll3vu3@buwebdev-cluster-1-ivaeg.mongodb.net/test?retryWrites=true&w=majority";
 
-
 // Express App
 var app = express();
-
-// Morgan Logger
-app.use(logger("short"));
 
 // Call to connect to database.
 mongoose.connect(mongoDB, {
 });
 
-// Set global promise.
+// Set global promise
 mongoose.Promise = global.Promise;
 
 // Creates variable containing mongoose connection
@@ -194,7 +187,7 @@ app.get('/view/:queryName', function(request, response) {
 // Use port 8080 to listen
 app.set('port', process.env.PORT || 8080);
 http.createServer(app).listen(app.get('port'), function() {
-  console.log("Application started on port 8080" + app.get('port'));
+  console.log("Application started on port 2000" + app.get('port'));
 });
 
 
