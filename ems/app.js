@@ -18,11 +18,6 @@ Expected output:
 // Start Program
 
 
-// lists details of formatted header, including first name, last name and assignment
-const header = require('./baumann-header.js');
-console.log(header.display("Reva", "Baumann", "App.ejs"));
-console.log("") // Line Break
-
 // Declare the express variable and import the express module
 var express = require("express");
 // Declare the http variable and import the http module
