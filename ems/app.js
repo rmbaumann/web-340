@@ -59,123 +59,143 @@ var app = express();
 // Morgan Logger
 app.use(logger("short"));
 
-// Security
-var csrfProtection = csrf({ cookie: true });
-var parseForm = bodyParser.urlencoded({ extended: true });
-app.use(helmet.xssFilter());
-app.use(parseForm);
-app.use(cookieParser());
-app.use(csrfProtection);
-app.use(function(req, res, next) {
-    let token = req.csrfToken();
-    res.cookie("XSRF-TOKEN", token);
-    res.locals.csrfToken = token;
-    next();
-});
-
-// Static Files
-app.use(express.static(__dirname));
-
-// View Engine
-app.set("port", process.env.PORT || 3001);
-app.set("views", path.resolve(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(logger("short"));
-app.use(helmet.xssFilter());
-app.use(express.static('./'));
-
-// Express Routing
-app.get("/", function(request, response) {
-    res.render("index", {
-        title: "Home Page"
-        page: "home"
-    });
-});
-
-app.get("/list", function(request, response) {
-    Employee.find({}, function(error, employees) {
-        if(error){
-            throw error;
-        }
-
-        response.render("list", {
-            title: "Employee List",
-            page: "list",
-            employees: employees
-        });
-    });
-});
-
-app.get("/new", function(request, response) {
-    response.render("new", {
-        title: "Add New Employee",
-        csrfToken: req.csrfToken()
-    });
-});
-
-app.post("/process", function(request, response) {
-    if (!request.body.txtName) {
-        response.status(400).send("Entries must have a name!");
-        return;
-    }
-
-    if(!request.body.txtLastName){
-        response.status(400).sent("Entries must have a last name!");
-        return;
-    }
-
-    var firstName = request.body.txtFirstName;
-    var lastName = request.body.txtLastName;
-
-    console.log(firstName, lastName);
-    var employee = new Employee({
-        firstName,
-        lastName,
-    });
-    
-    employee.save(function(error){
-        if(error){
-            throw error;
-        }
-        console.log('Employee ${firstName} ${lastName} saved!!');
-    });
-
-    response.redirect("/");
-});
-
-app.get("/view/:queryName", function(req, res) {
-    let qn = req.params.queryName;
-    Employee.find({ "name": qn }, function(error, emps) {
-        if(error) throw error;
-        console.log(emps);
-        if(emps.length > 0) {
-            res.render("view", {
-                title: "Employee Record",
-                employee: emps[0]
-            });
-        }
-        else {
-            res.redirect("/list");
-        }
-    });
-});
-
-// Mongo Connection 
+// Call to connect to database.
 mongoose.connect(mongoDB, {
-    useMongoClient: true
 });
 
+// Set global promise.
 mongoose.Promise = global.Promise;
 
+// Creates variable containing mongoose connection
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connected error: "));
-db.once("open", function() {
-    console.log("Application connected to mLab MongoDB instance.");
+
+// On error output error message.
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+
+// On success output message.
+db.once('open', function () {
+  console.log('Application connected to mLab');
+})
+
+
+// Instructs express to look inside of the views folder for files.
+app.set("views",path.resolve(__dirname,"views"));
+app.set("view engine","ejs");
+app.use(logger("short"));
+app.use(express.static('./'));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// cookieParser
+app.use(cookieParser());
+
+// csrfProtection
+app.use(csrfProtection);
+
+// Generate new token
+app.use(function(request, response, next) {
+  var token = request.csrfToken();
+  response.cookie('XSRF-TOKEN', token);
+  response.locals.csrfToken = token;
+  next();
 });
 
-// HTTP Server
-http.createServer(app).listen(app.get("port"), function() {
-    console.log("Application started and listening on Port 3001!");
+// Renders the home page
+app.get("/", function(request, response) {
+  response.render("index", {
+    title: "Home page",
+    page: "home"
+  });
 });
 
-//end program
+// Renders the list page
+app.get("/list", function(request, response) {
+  Employee.find({}, function (error, employees) {
+    if(error) {
+      throw error;
+    }
+
+    response.render("list", {
+      title: "Employees",
+      page: "list",
+      employees
+    });
+  });
+});
+
+// Renders the new employee page
+app.get("/new", function(request, response) {
+  response.render("new", {
+    title: "New Employee",
+    page: "new"
+  });
+});
+
+// New Employee Details, error message if not completed
+app.post('/process', function(req, res) {
+  if (!req.body.txtFirstName) {
+    res.status(400).send('Entries must have a first name!');
+    return;
+  }
+
+  if (!req.body.txtLastName) {
+    res.status(400).send('Entries must have a last name!');
+    return;
+  }
+
+  // Output to console.log
+  var firstName = req.body.txtFirstName;
+  var lastName = req.body.txtLastName;
+  console.log(firstName + " " + lastName);
+
+  //  First, LAst Name
+  let employee = new Employee({
+    firstName, lastName
+  });
+
+  // Save employee to database
+  employee.save(function(err) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(firstName + " " + lastName + ' saved successfully!');
+      res.redirect('/');
+    }
+  });
+});
+
+//  Details of View Page
+app.get('/view/:queryName', function(request, response) {
+  var queryName = request.params['queryName'];
+
+  Employee.find({_id: queryName}, function(err, employees) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log(employees);
+
+      if (employees.length > 0) {
+        response.render('view', {
+          title: 'EMS | View',
+          employee: employees
+        })
+      }
+      else {
+        response.redirect('/list')
+      }
+    }
+  })
+});
+
+// Use port 8080 to listen
+app.set('port', process.env.PORT || 8080);
+http.createServer(app).listen(app.get('port'), function() {
+  console.log("Application started on port 8080" + app.get('port'));
+});
+
+
+// end program
