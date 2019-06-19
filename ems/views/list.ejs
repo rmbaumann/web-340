@@ -20,7 +20,7 @@
       <br /><br />
       <h2><%= title %></h2>
       <% if(employees && employees.length) { %>
-      <h5><a href="/new">Add New</a></h5>
+      <h5><a href="new.ejs">Add New</a></h5>
       <!-- Test to see if the employees list exist and that it is an array-->
         <div class="table-responsive">
           <table class="table table-hover table-striped">
@@ -37,7 +37,7 @@
                 <tr>
                   <td><%= employee.firstName %></td>
                   <td><%= employee.lastName %></td>
-                  <td><a href="/view/<%= employee._id %>" >VIEW</a></td>
+                  <td><a href="view.ejs"<%= employee._id %>" >VIEW</a></td>
                 </tr>
               <% }) %>
             </tbody>
@@ -45,7 +45,7 @@
         </div>
         <% } else{ %>
           <br><br>
-          <p>No entries <a href="/new">add one!</a></p>
+          <p>No entries <a href="new.ejs">add one!</a></p>
         <% } %>
     </div>
 
