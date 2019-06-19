@@ -9,14 +9,18 @@
 */
 
 // start program
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
 
-var employeeSchema = new Schema({
-    name: String
+// Require statements
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Employee Schema with first and last name
+let EmployeeSchema = new Schema({
+  firstName: {type: String, required: true },
+  lastName: {type: String, required: true }
 });
 
-var Employee = mongoose.model("ems", employeeSchema);
+// Export the model using the Schema.
+module.exports = mongoose.model('Employee', EmployeeSchema);
 
-module.exports = Employee;
 // end program
