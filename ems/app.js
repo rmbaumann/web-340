@@ -42,7 +42,7 @@ var csrfProtection = csrf({cookie: true});
 var Employee = require("./models/employee");
 
 // connection to ems database
-var mongoDB = "mongodb+srv://user1:b3ll3vu3@buwebdev-cluster-1-ivaeg.mongodb.net/test?retryWrites=true&w=majority";
+var mongoDB = "mongodb+srv://admin:b3ll3vu3@buwebdev-cluster-1-ivaeg.mongodb.net/test?retryWrites=true&w=majority";
 
 // Express App
 var app = express();
