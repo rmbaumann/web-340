@@ -37,7 +37,7 @@
                 <tr>
                   <td><%= employee.firstName %></td>
                   <td><%= employee.lastName %></td>
-                  <td><a href="view.ejs"<%= employee._id %>" >VIEW</a></td>
+                  <td><a href="view/<%= employee.lastName %>" >VIEW</a></td>
                 </tr>
               <% }) %>
             </tbody>
