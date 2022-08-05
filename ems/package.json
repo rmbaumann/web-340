@@ -9,7 +9,7 @@
     "ejs": "^2.6.1",
     "express": "^4.17.0",
     "helmet": "^3.18.0",
-    "mongoose": "^5.5.12",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1"
   },
   "scripts": {
